@@ -39,13 +39,26 @@ export async function logout() {
 
 export async function createSantri(formData: FormData) {
   const nama = String(formData.get("nama") || "").trim();
-  if (nama) await addSantri(nama);
+  if (nama) {
+    try {
+      await addSantri(nama);
+    } catch (e: any) {
+      console.error(e);
+      redirect(`/admin?tab=santri&error=${encodeURIComponent(e.message || "Failed")}`);
+    }
+  }
   redirect("/admin?tab=santri");
 }
 
 export async function removeSantri(formData: FormData) {
   const id = String(formData.get("id") || "");
-  if (id) await deleteSantri(id);
+  if (id) {
+    try {
+      await deleteSantri(id);
+    } catch (e: any) {
+      console.error(e);
+    }
+  }
   redirect("/admin?tab=santri");
 }
 
