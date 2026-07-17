@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getRekap } from "@/lib/db";
+import { getRekap, getBukuKas } from "@/lib/db";
 
 function todayMonth(): string {
   const d = new Date();
@@ -15,6 +15,10 @@ function bulanLabel(b: string): string {
   return `${nama[Number(m) - 1]} ${y}`;
 }
 
+function formatRupiah(n: number) {
+  return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n);
+}
+
 export default async function PublicPage({
   searchParams,
 }: {
@@ -27,6 +31,9 @@ export default async function PublicPage({
   if (q) rekap = rekap.filter((r) => r.nama.toLowerCase().includes(q));
 
   const lunas = rekap.filter((r) => r.kasReguler === "Lunas" && r.kasUmum === "Lunas").length;
+  
+  const buku = await getBukuKas();
+  const topTransaksi = buku.transaksi.slice(0, 5);
 
   return (
     <main className="flex-1">
@@ -65,12 +72,54 @@ export default async function PublicPage({
           </button>
         </form>
 
-        <div className="mt-4 rounded-lg bg-white p-4 text-sm shadow-sm">
-          <p className="text-slate-600">
-            Periode <strong>{bulanLabel(bulan)}</strong> · {rekap.length} santri ·
-            lunas penuh kas: <strong>{lunas}</strong> santri
-          </p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-lg bg-emerald-50 border border-emerald-100 p-4 shadow-sm">
+            <h2 className="text-sm font-medium text-emerald-800">Saldo Pembukuan (Kas/Infak)</h2>
+            <p className="mt-1 text-2xl font-bold text-emerald-900">{formatRupiah(buku.saldo)}</p>
+          </div>
+          <div className="rounded-lg bg-white p-4 text-sm shadow-sm border border-slate-200 flex items-center">
+            <p className="text-slate-600">
+              Periode <strong>{bulanLabel(bulan)}</strong> — {rekap.length} santri —
+              lunas penuh kas bulanan: <strong>{lunas}</strong> santri
+            </p>
+          </div>
         </div>
+
+        {topTransaksi.length > 0 && (
+          <div className="mt-6">
+            <h2 className="text-lg font-bold text-slate-800 mb-3">5 Transaksi Terakhir</h2>
+            <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white shadow-sm">
+              <table className="min-w-full text-left text-sm">
+                <thead className="border-b border-slate-200 bg-slate-50 text-slate-600">
+                  <tr>
+                    <th className="px-4 py-3 font-semibold">Tgl</th>
+                    <th className="px-4 py-3 font-semibold">Keterangan</th>
+                    <th className="px-4 py-3 font-semibold text-right">Nominal</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {topTransaksi.map((t) => (
+                    <tr key={t.id}>
+                      <td className="px-4 py-3 text-slate-600 whitespace-nowrap">{t.tanggal}</td>
+                      <td className="px-4 py-3">
+                        <div className="font-medium text-slate-800">
+                          {t.santri_nama ? `${t.sumber_tujuan} - ${t.santri_nama}` : t.sumber_tujuan}
+                        </div>
+                        {t.keterangan && <div className="text-xs text-slate-500">{t.keterangan}</div>}
+                      </td>
+                      <td className={`px-4 py-3 text-right font-medium whitespace-nowrap ${t.jenis === "Masuk" ? "text-emerald-600" : "text-rose-600"}`}>
+                        {t.jenis === "Masuk" ? "+" : "-"} {formatRupiah(t.nominal)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        <h2 className="text-lg font-bold text-slate-800 mt-8 mb-3">Data Santri</h2>
+
 
         {rekap.length === 0 ? (
           <p className="mt-6 text-center text-slate-500">Tidak ada data yang cocok.</p>

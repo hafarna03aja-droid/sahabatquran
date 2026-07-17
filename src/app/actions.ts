@@ -7,6 +7,8 @@ import {
   deleteSantri,
   upsertKas,
   upsertKehadiran,
+  insertTransaksi,
+  deleteTransaksi,
   type KategoriKas,
   type StatusKehadiran,
   type TipeKelas,
@@ -93,4 +95,45 @@ export async function submitKas(formData: FormData) {
   }
   await upsertKas(rows, tanggal, kategori, inputBy);
   redirect("/admin?tab=kas&ok=1");
+}
+
+export async function submitBukuKas(formData: FormData) {
+  const tanggal = String(formData.get("tanggal") || "");
+  const jenis = String(formData.get("jenis")) as "Masuk" | "Keluar";
+  const tipeAsal = String(formData.get("tipeAsal") || ""); // "santri" atau "umum"
+  const santriId = tipeAsal === "santri" ? String(formData.get("santri_id") || "") : null;
+  const sumberTujuan = String(formData.get("sumber_tujuan") || "");
+  const nominal = Number(formData.get("nominal") || "0");
+  const keterangan = String(formData.get("keterangan") || "");
+  const inputBy = String(formData.get("inputBy") || "admin");
+
+  if (nominal > 0) {
+    try {
+      await insertTransaksi({
+        tanggal,
+        jenis,
+        santri_id: santriId,
+        sumber_tujuan: sumberTujuan,
+        nominal,
+        keterangan: keterangan || null,
+        input_by: inputBy,
+      });
+    } catch (e: any) {
+      console.error(e);
+      redirect(`/admin?tab=buku&error=${encodeURIComponent(e.message)}`);
+    }
+  }
+  redirect("/admin?tab=buku");
+}
+
+export async function removeTransaksi(formData: FormData) {
+  const id = String(formData.get("id") || "");
+  if (id) {
+    try {
+      await deleteTransaksi(id);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  redirect("/admin?tab=buku");
 }

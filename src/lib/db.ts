@@ -25,6 +25,19 @@ export type Kas = {
   inputBy: string;
 };
 
+export type Transaksi = {
+  id: string;
+  tanggal: string;
+  jenis: "Masuk" | "Keluar";
+  santri_id: string | null;
+  santri_nama?: string;
+  sumber_tujuan: string;
+  nominal: number;
+  keterangan: string | null;
+  input_by: string;
+  created_at?: string;
+};
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "placeholder-key";
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -187,4 +200,51 @@ export async function getKasLog(tanggal: string, kategori: KategoriKas) {
     nominal: row.nominal,
     inputBy: row.input_by
   }));
+}
+
+export async function getBukuKas() {
+  if (supabaseUrl.includes("placeholder")) return { saldo: 0, transaksi: [] };
+  const { data, error } = await supabase
+    .from("transaksi")
+    .select("*, santri(nama)")
+    .order("tanggal", { ascending: false })
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return { saldo: 0, transaksi: [] };
+  }
+
+  let totalMasuk = 0;
+  let totalKeluar = 0;
+
+  const trx: Transaksi[] = (data || []).map((row: any) => {
+    if (row.jenis === "Masuk") totalMasuk += Number(row.nominal);
+    if (row.jenis === "Keluar") totalKeluar += Number(row.nominal);
+
+    return {
+      id: row.id,
+      tanggal: row.tanggal,
+      jenis: row.jenis,
+      santri_id: row.santri_id,
+      santri_nama: row.santri?.nama,
+      sumber_tujuan: row.sumber_tujuan,
+      nominal: row.nominal,
+      keterangan: row.keterangan,
+      input_by: row.input_by,
+      created_at: row.created_at,
+    };
+  });
+
+  return { saldo: totalMasuk - totalKeluar, transaksi: trx };
+}
+
+export async function insertTransaksi(data: Omit<Transaksi, "id" | "created_at" | "santri_nama">) {
+  const { error } = await supabase.from("transaksi").insert([data]);
+  if (error) throw error;
+}
+
+export async function deleteTransaksi(id: string) {
+  const { error } = await supabase.from("transaksi").delete().eq("id", id);
+  if (error) throw error;
 }

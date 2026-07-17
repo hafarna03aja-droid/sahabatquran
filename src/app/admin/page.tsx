@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { requireAuth } from "@/lib/auth";
-import { listSantri } from "@/lib/db";
+import { listSantri, getBukuKas } from "@/lib/db";
 import { createSantri, logout, removeSantri } from "@/app/actions";
 import AbsensiForm from "./_components/AbsensiForm";
 import KasForm from "./_components/KasForm";
+import BukuKasForm from "./_components/BukuKasForm";
 
 export default async function AdminPage({
   searchParams,
@@ -14,6 +15,7 @@ export default async function AdminPage({
   const sp = await searchParams;
   const tab = sp.tab || "absensi";
   const santri = await listSantri();
+  const buku = tab === "buku" ? await getBukuKas() : { saldo: 0, transaksi: [] };
 
   return (
     <main className="flex-1">
@@ -40,12 +42,13 @@ export default async function AdminPage({
       </header>
 
       <div className="mx-auto max-w-5xl px-4 py-6">
-        <nav className="flex gap-2 border-b border-slate-200 pb-2 text-sm">
-          {[
-            ["absensi", "Absensi"],
-            ["kas", "Kas"],
-            ["santri", "Data Santri"],
-          ].map(([key, label]) => (
+          <nav className="flex gap-2 border-b border-slate-200 pb-2 text-sm overflow-x-auto whitespace-nowrap">
+            {[
+              ["absensi", "Absensi"],
+              ["kas", "Kas Bulanan"],
+              ["buku", "Pembukuan (Infak)"],
+              ["santri", "Data Santri"],
+            ].map(([key, label]) => (
             <Link
               key={key}
               href={`/admin?tab=${key}`}
@@ -71,12 +74,14 @@ export default async function AdminPage({
           </p>
         )}
 
-        <div className="mt-6">
-          {tab === "absensi" && <AbsensiForm santri={santri} />}
+          <div className="mt-6">
+            {tab === "absensi" && <AbsensiForm santri={santri} />}
+  
+            {tab === "kas" && <KasForm santri={santri} />}
 
-          {tab === "kas" && <KasForm santri={santri} />}
-
-          {tab === "santri" && (
+            {tab === "buku" && <BukuKasForm santri={santri} saldo={buku.saldo} transaksi={buku.transaksi} />}
+  
+            {tab === "santri" && (
             <div className="space-y-4">
               <form
                 action={createSantri}
