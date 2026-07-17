@@ -96,14 +96,14 @@ export async function submitKas(formData: FormData) {
       const isLunas = val === "on";
       rows.push({ santriId: id, lunas: isLunas, nominal });
       
-      if (isLunas && nominal && nominal > 0) {
+      if (nominal && nominal > 0) {
         transaksis.push({
           tanggal,
           jenis: "Masuk",
           santri_id: id,
           sumber_tujuan: `Kas ${kategori}`,
           nominal,
-          keterangan: "Otomatis dari Kas Bulanan",
+          keterangan: isLunas ? "Otomatis dari Kas Bulanan" : "Cicilan Kas Bulanan",
           input_by: inputBy,
         });
       }
