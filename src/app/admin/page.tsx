@@ -1,0 +1,134 @@
+import Link from "next/link";
+import { requireAuth } from "@/lib/auth";
+import { listSantri } from "@/lib/db";
+import { createSantri, logout, removeSantri } from "@/app/actions";
+import AbsensiForm from "./_components/AbsensiForm";
+import KasForm from "./_components/KasForm";
+
+export default async function AdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tab?: string; ok?: string; error?: string }>;
+}) {
+  await requireAuth();
+  const sp = await searchParams;
+  const tab = sp.tab || "absensi";
+  const santri = await listSantri();
+
+  return (
+    <main className="flex-1">
+      <header className="bg-emerald-800 text-white">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
+          <div className="flex items-center gap-3">
+            <img src="/logo.jpg" alt="Logo" className="h-10 w-10 rounded-full object-cover bg-white" />
+            <div>
+              <h1 className="text-lg font-bold">Panel Admin - Maosani</h1>
+              <p className="text-emerald-100 text-xs">Input absensi & kas santri</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 text-sm">
+            <Link href="/" className="text-emerald-100 hover:underline">
+              Dasbor Publik
+            </Link>
+            <form action={logout}>
+              <button className="rounded-lg bg-emerald-900/60 px-3 py-1 hover:bg-emerald-900">
+                Logout
+              </button>
+            </form>
+          </div>
+        </div>
+      </header>
+
+      <div className="mx-auto max-w-5xl px-4 py-6">
+        <nav className="flex gap-2 border-b border-slate-200 pb-2 text-sm">
+          {[
+            ["absensi", "Absensi"],
+            ["kas", "Kas"],
+            ["santri", "Data Santri"],
+          ].map(([key, label]) => (
+            <Link
+              key={key}
+              href={`/admin?tab=${key}`}
+              className={`rounded-lg px-3 py-2 font-medium ${
+                tab === key
+                  ? "bg-emerald-100 text-emerald-800"
+                  : "text-slate-500 hover:bg-slate-100"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+
+        {sp.ok && (
+          <p className="mt-4 rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+            ✓ Data berhasil disimpan.
+          </p>
+        )}
+        {sp.error && (
+          <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+            ⚠ {decodeURIComponent(sp.error)}
+          </p>
+        )}
+
+        <div className="mt-6">
+          {tab === "absensi" && <AbsensiForm santri={santri} />}
+
+          {tab === "kas" && <KasForm santri={santri} />}
+
+          {tab === "santri" && (
+            <div className="space-y-4">
+              <form
+                action={createSantri}
+                className="flex flex-col gap-2 sm:flex-row sm:items-end"
+              >
+                <label className="flex-1 text-sm">
+                  <span className="mb-1 block font-medium text-slate-600">Nama Santri Baru</span>
+                  <input
+                    name="nama"
+                    required
+                    placeholder="Nama lengkap"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+                  />
+                </label>
+                <button className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800">
+                  Tambah Santri
+                </button>
+              </form>
+
+              <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                <table className="w-full text-sm">
+                  <thead className="bg-slate-50 text-left text-slate-500">
+                    <tr>
+                      <th className="px-4 py-2">Nama</th>
+                      <th className="px-4 py-2">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {santri.map((s) => (
+                      <tr key={s.id} className="border-t border-slate-100">
+                        <td className="px-4 py-2">{s.nama}</td>
+                        <td className="px-4 py-2">
+                          <form action={removeSantri}>
+                            <input type="hidden" name="id" value={s.id} />
+                            <button className="text-xs text-red-600 hover:underline">
+                              Hapus
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-xs text-slate-400">
+                Total {santri.length} santri. Menghapus santri juga menghapus seluruh
+                absensi & kas-nya.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+}
