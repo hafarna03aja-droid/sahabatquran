@@ -12,7 +12,7 @@ export const TIPE_KELAS: TipeKelas[] = ["Reguler", "Kitab"];
 export const KATEGORI_KAS: KategoriKas[] = ["Kas Reguler", "Kas Umum"];
 
 // Hari dalam seminggu (0 = Minggu .. 6 = Sabtu)
-export const HARI_REGULER = [2, 3, 5, 0]; // Selasa, Rabu, Jumat, Ahad
+export const HARI_REGULER = [2, 3, 5, 6]; // Selasa, Rabu, Jumat, Sabtu
 export const HARI_KITAB = [6]; // Sabtu
 
 const NAMA_HARI = ["Ahad", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
@@ -28,7 +28,7 @@ export function validateHari(tipeKelas: TipeKelas, tanggalISO: string): string |
     return "Kelas Maosani Kitab hanya boleh diisi pada hari Sabtu.";
   }
   if (tipeKelas === "Reguler" && !HARI_REGULER.includes(hari)) {
-    return "Kelas Reguler hanya boleh diisi pada hari Selasa, Rabu, Jumat, atau Ahad.";
+    return "Kelas Reguler hanya boleh diisi pada hari Selasa, Rabu, Jumat, atau Sabtu.";
   }
   return null;
 }
