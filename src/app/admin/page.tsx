@@ -5,6 +5,7 @@ import { createSantri, logout, removeSantri } from "@/app/actions";
 import AbsensiForm from "./_components/AbsensiForm";
 import KasForm from "./_components/KasForm";
 import BukuKasForm from "./_components/BukuKasForm";
+import Sidebar from "./_components/Sidebar";
 
 export default async function AdminPage({
   searchParams,
@@ -42,26 +43,7 @@ export default async function AdminPage({
       </header>
 
       <div className="mx-auto max-w-5xl px-4 py-6">
-          <nav className="flex gap-2 border-b border-slate-200 pb-2 text-sm overflow-x-auto whitespace-nowrap">
-            {[
-              ["absensi", "Absensi"],
-              ["kas", "Kas Bulanan"],
-              ["buku", "Pembukuan (Infak)"],
-              ["santri", "Data Santri"],
-            ].map(([key, label]) => (
-            <Link
-              key={key}
-              href={`/admin?tab=${key}`}
-              className={`rounded-lg px-3 py-2 font-medium ${
-                tab === key
-                  ? "bg-blue-100 text-blue-800"
-                  : "text-slate-500 hover:bg-slate-100"
-              }`}
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
+        <Sidebar />
 
         {sp.ok && (
           <p className="mt-4 rounded-lg bg-blue-50 px-3 py-2 text-sm text-blue-700">
