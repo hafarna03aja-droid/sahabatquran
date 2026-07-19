@@ -170,6 +170,7 @@ export default function BukuKasForm({
         <table className="min-w-full text-left text-sm">
           <thead className="border-b border-slate-200 bg-slate-50 text-slate-600">
             <tr>
+              <th className="px-4 py-3 font-semibold w-12">No</th>
               <th className="px-4 py-3 font-semibold">Tgl</th>
               <th className="px-4 py-3 font-semibold">Jenis</th>
               <th className="px-4 py-3 font-semibold">Sumber / Tujuan</th>
@@ -179,8 +180,9 @@ export default function BukuKasForm({
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {transaksi.map((t) => (
+            {transaksi.map((t, i) => (
               <tr key={t.id} className="hover:bg-slate-50/50">
+                <td className="px-4 py-3 text-slate-500">{i + 1}</td>
                 <td className="px-4 py-3">{t.tanggal}</td>
                 <td className="px-4 py-3">
                   <span
@@ -214,7 +216,7 @@ export default function BukuKasForm({
             ))}
             {transaksi.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-slate-500">
+                <td colSpan={7} className="px-4 py-8 text-center text-slate-500">
                   Belum ada transaksi
                 </td>
               </tr>

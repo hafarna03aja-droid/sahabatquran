@@ -55,13 +55,15 @@ export default function AbsensiForm({ santri }: { santri: Santri[] }) {
         <table className="w-full text-sm">
           <thead className="bg-slate-50 text-left text-slate-500">
             <tr>
+              <th className="px-4 py-2 w-12">No</th>
               <th className="px-4 py-2">Santri</th>
               <th className="px-4 py-2">Status</th>
             </tr>
           </thead>
           <tbody>
-            {santri.map((s) => (
+            {santri.map((s, i) => (
               <tr key={s.id} className="border-t border-slate-100">
+                <td className="px-4 py-2 text-slate-500">{i + 1}</td>
                 <td className="px-4 py-2">{s.nama}</td>
                 <td className="px-4 py-2">
                   <select
