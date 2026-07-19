@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Rumah Quran Maosani — Absensi & Kas",
-  description: "Sistem absensi dan keuangan santri Rumah Quran Maosani",
+  title: "SAQ Sahabat Qur'an - Absensi & Kas",
+  description: "Sistem absensi dan keuangan santri SAQ Sahabat Qur'an",
 };
 
 export default function RootLayout({

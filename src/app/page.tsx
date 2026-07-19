@@ -39,9 +39,9 @@ export default async function PublicPage({
     <main className="flex-1">
       <header className="bg-emerald-700 text-white">
         <div className="mx-auto max-w-5xl px-4 py-6 flex items-center gap-4">
-          <img src="/logo.jpg" alt="Logo Maosani" className="h-16 w-16 rounded-full object-cover shrink-0 bg-white" />
+          <img src="/logo.jpg" alt="Logo SAQ Sahabat Qur'an" className="h-16 w-16 rounded-full object-cover shrink-0 bg-white" />
           <div>
-            <h1 className="text-xl font-bold sm:text-2xl">Rumah Quran Maosani</h1>
+            <h1 className="text-xl font-bold sm:text-2xl">SAQ Sahabat Qur&apos;an</h1>
             <p className="text-emerald-100 text-sm">Dasbor Publik Absensi & Kas Santri</p>
           </div>
         </div>

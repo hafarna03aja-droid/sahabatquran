@@ -12,8 +12,8 @@ export const TIPE_KELAS: TipeKelas[] = ["Reguler", "Kitab"];
 export const KATEGORI_KAS: KategoriKas[] = ["Kas Reguler", "Kas Umum"];
 
 // Hari dalam seminggu (0 = Minggu .. 6 = Sabtu)
-export const HARI_REGULER = [2, 3, 5, 6]; // Selasa, Rabu, Jumat, Sabtu
-export const HARI_KITAB = [6]; // Sabtu
+export const HARI_REGULER = [0, 1, 2, 3, 4, 5, 6]; 
+export const HARI_KITAB = [0, 1, 2, 3, 4, 5, 6]; 
 
 const NAMA_HARI = ["Ahad", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
@@ -22,13 +22,6 @@ export function namaHari(d: Date): string {
 }
 
 // Validasi Silang Hari (SOP): kunci tipe kelas yang tidak sesuai hari
-export function validateHari(tipeKelas: TipeKelas, tanggalISO: string): string | null {
-  const hari = new Date(tanggalISO + "T00:00:00").getDay();
-  if (tipeKelas === "Kitab" && !HARI_KITAB.includes(hari)) {
-    return "Kelas Maosani Kitab hanya boleh diisi pada hari Sabtu.";
-  }
-  if (tipeKelas === "Reguler" && !HARI_REGULER.includes(hari)) {
-    return "Kelas Reguler hanya boleh diisi pada hari Selasa, Rabu, Jumat, atau Sabtu.";
-  }
+export function validateHari(_tipeKelas: TipeKelas, _tanggalISO: string): string | null {
   return null;
 }

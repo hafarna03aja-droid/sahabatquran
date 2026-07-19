@@ -24,7 +24,7 @@ export default async function AdminPage({
           <div className="flex items-center gap-3">
             <img src="/logo.jpg" alt="Logo" className="h-10 w-10 rounded-full object-cover bg-white" />
             <div>
-              <h1 className="text-lg font-bold">Panel Admin - Maosani</h1>
+              <h1 className="text-lg font-bold">Panel Admin - SAQ Sahabat Qur&apos;an</h1>
               <p className="text-emerald-100 text-xs">Input absensi & kas santri</p>
             </div>
           </div>
