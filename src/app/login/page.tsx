@@ -14,7 +14,7 @@ export default async function LoginPage({
         className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-md"
       >
         <div className="flex justify-center mb-4">
-          <img src="/logo.jpg" alt="Logo" className="h-16 w-16 rounded-full object-cover bg-slate-50 border border-slate-100" />
+          <img src="/logo.png" alt="Logo" className="h-16 w-16 rounded-full object-cover bg-slate-50 border border-slate-100" />
         </div>
         <h1 className="text-lg font-bold text-slate-800 text-center">Login Admin / Ustadz</h1>
         <p className="mt-1 text-sm text-slate-500 text-center">

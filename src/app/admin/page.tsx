@@ -22,7 +22,7 @@ export default async function AdminPage({
       <header className="bg-emerald-800 text-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
-            <img src="/logo.jpg" alt="Logo" className="h-10 w-10 rounded-full object-cover bg-white" />
+            <img src="/logo.png" alt="Logo" className="h-10 w-10 rounded-full object-cover bg-white" />
             <div>
               <h1 className="text-lg font-bold">Panel Admin - SAQ Sahabat Qur&apos;an</h1>
               <p className="text-emerald-100 text-xs">Input absensi & kas santri</p>
