@@ -1,6 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 
-export type Santri = { id: string; nama: string };
+export type Santri = {
+  id: string;
+  nama: string;
+  tempat_lahir?: string;
+  tanggal_lahir?: string;
+  nama_wali?: string;
+  alamat_wali?: string;
+};
 
 export type TipeKelas = "Reguler" | "Kitab";
 export type StatusKehadiran = "H" | "S" | "I" | "A";
@@ -52,10 +59,27 @@ export async function listSantri(): Promise<Santri[]> {
   return data || [];
 }
 
-export async function addSantri(nama: string): Promise<Santri> {
-  const { data, error } = await supabase.from("santri").insert([{ nama: nama.trim() }]).select().single();
+export async function addSantri(data: Omit<Santri, "id">): Promise<Santri> {
+  const { data: res, error } = await supabase.from("santri").insert([{
+    nama: data.nama.trim(),
+    tempat_lahir: data.tempat_lahir?.trim() || null,
+    tanggal_lahir: data.tanggal_lahir || null,
+    nama_wali: data.nama_wali?.trim() || null,
+    alamat_wali: data.alamat_wali?.trim() || null
+  }]).select().single();
   if (error) throw error;
-  return data;
+  return res;
+}
+
+export async function updateSantri(id: string, data: Omit<Santri, "id">): Promise<void> {
+  const { error } = await supabase.from("santri").update({
+    nama: data.nama.trim(),
+    tempat_lahir: data.tempat_lahir?.trim() || null,
+    tanggal_lahir: data.tanggal_lahir || null,
+    nama_wali: data.nama_wali?.trim() || null,
+    alamat_wali: data.alamat_wali?.trim() || null
+  }).eq("id", id);
+  if (error) throw error;
 }
 
 export async function deleteSantri(id: string): Promise<void> {

@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import {
   addSantri,
+  updateSantri,
   deleteSantri,
   upsertKas,
   upsertKehadiran,
@@ -43,9 +44,14 @@ export async function logout() {
 
 export async function createSantri(formData: FormData) {
   const nama = String(formData.get("nama") || "").trim();
+  const tempat_lahir = String(formData.get("tempat_lahir") || "").trim();
+  const tanggal_lahir = String(formData.get("tanggal_lahir") || "");
+  const nama_wali = String(formData.get("nama_wali") || "").trim();
+  const alamat_wali = String(formData.get("alamat_wali") || "").trim();
+
   if (nama) {
     try {
-      await addSantri(nama);
+      await addSantri({ nama, tempat_lahir, tanggal_lahir, nama_wali, alamat_wali });
     } catch (e: any) {
       console.error(e);
       redirect(`/admin?tab=santri&error=${encodeURIComponent(e.message || "Failed")}`);
@@ -53,6 +59,26 @@ export async function createSantri(formData: FormData) {
   }
   revalidatePath("/admin");
   redirect("/admin?tab=santri");
+}
+
+export async function editSantri(formData: FormData) {
+  const id = String(formData.get("id") || "");
+  const nama = String(formData.get("nama") || "").trim();
+  const tempat_lahir = String(formData.get("tempat_lahir") || "").trim();
+  const tanggal_lahir = String(formData.get("tanggal_lahir") || "");
+  const nama_wali = String(formData.get("nama_wali") || "").trim();
+  const alamat_wali = String(formData.get("alamat_wali") || "").trim();
+
+  if (id && nama) {
+    try {
+      await updateSantri(id, { nama, tempat_lahir, tanggal_lahir, nama_wali, alamat_wali });
+    } catch (e: any) {
+      console.error(e);
+      redirect(`/admin?tab=santri&error=${encodeURIComponent(e.message || "Failed")}`);
+    }
+  }
+  revalidatePath("/admin");
+  redirect("/admin?tab=santri&ok=1");
 }
 
 export async function removeSantri(formData: FormData) {
