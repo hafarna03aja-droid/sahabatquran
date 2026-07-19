@@ -122,7 +122,7 @@ export default async function AdminPage({
                              <input name="tempat_lahir" defaultValue={s.tempat_lahir || ""} placeholder="Tempat" className="w-full rounded border border-slate-200 px-2 py-1 text-xs focus:border-blue-500 focus:outline-none" />
                              <div className="flex gap-1">
                                <input type="date" name="tanggal_lahir" defaultValue={s.tanggal_lahir || ""} className="w-full rounded border border-slate-200 px-2 py-1 text-xs focus:border-blue-500 focus:outline-none" />
-                               <button type="submit" className="rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200" title="Simpan TTL">💾</button>
+                               <button type="submit" className="rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200" title="Simpan TTL">Simpan</button>
                              </div>
                            </form>
                         </td>
