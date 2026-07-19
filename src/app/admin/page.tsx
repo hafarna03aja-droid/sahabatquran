@@ -111,29 +111,27 @@ export default async function AdminPage({
                     {santri.map((s, i) => (
                       <tr key={s.id} className="hover:bg-slate-50/50">
                         <td className="px-4 py-3 text-slate-500 align-top">{i + 1}</td>
-                        <td className="px-4 py-3 align-top font-medium text-slate-800">{s.nama}</td>
-                        <td className="px-4 py-3 align-top text-slate-600">
-                           <form action={editSantri} className="flex flex-col gap-1">
-                             <input type="hidden" name="id" value={s.id} />
-                             <input type="hidden" name="nama" value={s.nama} />
-                             <input type="hidden" name="nama_wali" value={s.nama_wali || ""} />
-                             <input type="hidden" name="alamat_wali" value={s.alamat_wali || ""} />
-                             
-                             <input name="tempat_lahir" defaultValue={s.tempat_lahir || ""} placeholder="Tempat" className="w-full rounded border border-slate-200 px-2 py-1 text-xs focus:border-blue-500 focus:outline-none" />
-                             <div className="flex gap-1">
-                               <input type="date" name="tanggal_lahir" defaultValue={s.tanggal_lahir || ""} className="w-full rounded border border-slate-200 px-2 py-1 text-xs focus:border-blue-500 focus:outline-none" />
-                               <button type="submit" className="rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-200" title="Simpan TTL">Simpan</button>
-                             </div>
-                           </form>
+                        <td className="px-4 py-3 align-top font-medium text-slate-800">
+                          <input form={`edit-${s.id}`} name="nama" defaultValue={s.nama} required className="w-full rounded border border-slate-200 px-2 py-1 text-xs focus:border-blue-500 focus:outline-none" />
                         </td>
                         <td className="px-4 py-3 align-top text-slate-600">
-                          {s.nama_wali ? <div className="font-medium text-slate-700">{s.nama_wali}</div> : <span className="text-slate-400 italic text-xs">Belum diisi</span>}
-                          {s.alamat_wali && <div className="text-xs mt-0.5">{s.alamat_wali}</div>}
+                           <input form={`edit-${s.id}`} name="tempat_lahir" defaultValue={s.tempat_lahir || ""} placeholder="Tempat" className="w-full mb-1 rounded border border-slate-200 px-2 py-1 text-xs focus:border-blue-500 focus:outline-none" />
+                           <input form={`edit-${s.id}`} type="date" name="tanggal_lahir" defaultValue={s.tanggal_lahir || ""} className="w-full rounded border border-slate-200 px-2 py-1 text-xs focus:border-blue-500 focus:outline-none" />
+                        </td>
+                        <td className="px-4 py-3 align-top text-slate-600">
+                          <input form={`edit-${s.id}`} name="nama_wali" defaultValue={s.nama_wali || ""} placeholder="Nama Wali" className="w-full mb-1 rounded border border-slate-200 px-2 py-1 text-xs focus:border-blue-500 focus:outline-none" />
+                          <input form={`edit-${s.id}`} name="alamat_wali" defaultValue={s.alamat_wali || ""} placeholder="Alamat Wali" className="w-full rounded border border-slate-200 px-2 py-1 text-xs focus:border-blue-500 focus:outline-none" />
                         </td>
                         <td className="px-4 py-3 align-top">
+                          <form id={`edit-${s.id}`} action={editSantri} className="mb-2">
+                            <input type="hidden" name="id" value={s.id} />
+                            <button type="submit" className="text-xs text-blue-600 hover:underline font-medium">
+                              Simpan
+                            </button>
+                          </form>
                           <form action={removeSantri}>
                             <input type="hidden" name="id" value={s.id} />
-                            <button className="text-xs text-red-600 hover:underline font-medium">
+                            <button type="submit" className="text-xs text-red-600 hover:underline font-medium">
                               Hapus
                             </button>
                           </form>
