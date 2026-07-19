@@ -131,7 +131,7 @@ export default async function AdminPage({
                           {s.alamat_wali && <div className="text-xs mt-0.5">{s.alamat_wali}</div>}
                         </td>
                         <td className="px-4 py-3 align-top">
-                          <form action={removeSantri} onSubmit={(e) => { if(!confirm("Hapus santri ini beserta semua data absensi dan kas-nya?")) e.preventDefault(); }}>
+                          <form action={removeSantri}>
                             <input type="hidden" name="id" value={s.id} />
                             <button className="text-xs text-red-600 hover:underline font-medium">
                               Hapus

@@ -205,9 +205,7 @@ export default function BukuKasForm({
                   {t.jenis === "Masuk" ? "+" : "-"} {formatRupiah(t.nominal)}
                 </td>
                 <td className="px-4 py-3 text-right">
-                  <form action={removeTransaksi} onSubmit={(e) => {
-                    if (!confirm("Hapus transaksi ini?")) e.preventDefault();
-                  }}>
+                  <form action={removeTransaksi}>
                     <input type="hidden" name="id" value={t.id} />
                     <button type="submit" className="text-red-500 hover:text-red-700 text-xs font-medium">Hapus</button>
                   </form>
