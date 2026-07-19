@@ -25,7 +25,7 @@ export default function AbsensiForm({ santri }: { santri: Santri[] }) {
             value={tanggal}
             onChange={(e) => setTanggal(e.target.value)}
             required
-            className="rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+            className="rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
           />
         </label>
         <label className="text-sm">
@@ -34,7 +34,7 @@ export default function AbsensiForm({ santri }: { santri: Santri[] }) {
             name="tipeKelas"
             value={tipe}
             onChange={(e) => setTipe(e.target.value as TipeKelasLocal)}
-            className="rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+            className="rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
           >
             {TIPE_KELAS.map((t) => (
               <option key={t} value={t}>
@@ -67,7 +67,7 @@ export default function AbsensiForm({ santri }: { santri: Santri[] }) {
                   <select
                     name={`status_${s.id}`}
                     defaultValue="H"
-                    className="rounded-lg border border-slate-300 px-2 py-1 focus:border-emerald-500 focus:outline-none"
+                    className="rounded-lg border border-slate-300 px-2 py-1 focus:border-blue-500 focus:outline-none"
                   >
                     {STATUS.map((st) => (
                       <option key={st.code} value={st.code}>
@@ -85,7 +85,7 @@ export default function AbsensiForm({ santri }: { santri: Santri[] }) {
       <button
         type="submit"
         disabled={!!error}
-        className="rounded-lg bg-emerald-700 px-5 py-2 font-medium text-white hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+        className="rounded-lg bg-blue-700 px-5 py-2 font-medium text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-slate-300"
       >
         Simpan Absensi
       </button>

@@ -20,7 +20,7 @@ export default function KasForm({ santri }: { santri: Santri[] }) {
             value={tanggal}
             onChange={(e) => setTanggal(e.target.value)}
             required
-            className="rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+            className="rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
           />
         </label>
         <label className="text-sm">
@@ -29,7 +29,7 @@ export default function KasForm({ santri }: { santri: Santri[] }) {
             name="kategori"
             value={kategori}
             onChange={(e) => setKategori(e.target.value)}
-            className="rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+            className="rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
           >
             {KATEGORI_KAS.map((k) => (
               <option key={k} value={k}>
@@ -59,7 +59,7 @@ export default function KasForm({ santri }: { santri: Santri[] }) {
                   <input
                     type="checkbox"
                     name={`lunas_${s.id}`}
-                    className="h-4 w-4 rounded border-slate-300 text-emerald-600"
+                    className="h-4 w-4 rounded border-slate-300 text-blue-600"
                   />
                 </td>
                 <td className="px-4 py-2">
@@ -67,7 +67,7 @@ export default function KasForm({ santri }: { santri: Santri[] }) {
                     type="number"
                     name={`nominal_${s.id}`}
                     placeholder="0"
-                    className="w-28 rounded-lg border border-slate-300 px-2 py-1 focus:border-emerald-500 focus:outline-none"
+                    className="w-28 rounded-lg border border-slate-300 px-2 py-1 focus:border-blue-500 focus:outline-none"
                   />
                 </td>
               </tr>
@@ -78,7 +78,7 @@ export default function KasForm({ santri }: { santri: Santri[] }) {
 
       <button
         type="submit"
-        className="rounded-lg bg-emerald-700 px-5 py-2 font-medium text-white hover:bg-emerald-800"
+        className="rounded-lg bg-blue-700 px-5 py-2 font-medium text-white hover:bg-blue-800"
       >
         Simpan Kas
       </button>

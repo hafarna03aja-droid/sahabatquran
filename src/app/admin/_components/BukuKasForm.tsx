@@ -30,7 +30,7 @@ export default function BukuKasForm({
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <div className="rounded-lg bg-emerald-50 px-4 py-3 text-emerald-800 border border-emerald-100 flex-1">
+        <div className="rounded-lg bg-blue-50 px-4 py-3 text-blue-800 border border-blue-100 flex-1">
           <p className="text-sm">Saldo Saat Ini</p>
           <p className="text-2xl font-bold">{formatRupiah(saldo)}</p>
         </div>
@@ -47,7 +47,7 @@ export default function BukuKasForm({
                 name="tanggal"
                 required
                 defaultValue={todayLocal()}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
               />
             </label>
             <label className="block text-sm">
@@ -56,7 +56,7 @@ export default function BukuKasForm({
                 name="jenis"
                 value={jenis}
                 onChange={(e) => setJenis(e.target.value as "Masuk" | "Keluar")}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
               >
                 <option value="Masuk">Pemasukan (Masuk)</option>
                 <option value="Keluar">Pengeluaran (Keluar)</option>
@@ -76,7 +76,7 @@ export default function BukuKasForm({
                       value="santri"
                       checked={tipeAsal === "santri"}
                       onChange={() => setTipeAsal("santri")}
-                      className="text-emerald-600 focus:ring-emerald-500"
+                      className="text-blue-600 focus:ring-blue-500"
                     />
                     Dari Santri
                   </label>
@@ -87,7 +87,7 @@ export default function BukuKasForm({
                       value="umum"
                       checked={tipeAsal === "umum"}
                       onChange={() => setTipeAsal("umum")}
-                      className="text-emerald-600 focus:ring-emerald-500"
+                      className="text-blue-600 focus:ring-blue-500"
                     />
                     Umum / Donatur
                   </label>
@@ -98,7 +98,7 @@ export default function BukuKasForm({
                     <select
                       name="santri_id"
                       required
-                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
                     >
                       <option value="">-- Pilih Santri --</option>
                       {santri.map((s) => (
@@ -116,7 +116,7 @@ export default function BukuKasForm({
                       name="sumber_tujuan"
                       required
                       placeholder="Contoh: Donatur A, Hamba Allah"
-                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
                     />
                   </label>
                 )}
@@ -128,7 +128,7 @@ export default function BukuKasForm({
                   name="sumber_tujuan"
                   required
                   placeholder="Contoh: Beli Spidol, Konsumsi"
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
                 />
                 <input type="hidden" name="tipeAsal" value="umum" />
               </label>
@@ -143,7 +143,7 @@ export default function BukuKasForm({
                   required
                   min="1"
                   placeholder="Contoh: 50000"
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
                 />
               </label>
               <label className="block text-sm">
@@ -151,7 +151,7 @@ export default function BukuKasForm({
                 <input
                   name="keterangan"
                   placeholder="Detail tambahan..."
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
                 />
               </label>
             </div>
@@ -159,7 +159,7 @@ export default function BukuKasForm({
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 sm:w-auto"
+            className="w-full rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 sm:w-auto"
           >
             Simpan Transaksi
           </button>
@@ -185,7 +185,7 @@ export default function BukuKasForm({
                 <td className="px-4 py-3">
                   <span
                     className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
-                      t.jenis === "Masuk" ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"
+                      t.jenis === "Masuk" ? "bg-blue-100 text-blue-700" : "bg-rose-100 text-rose-700"
                     }`}
                   >
                     {t.jenis}
@@ -197,7 +197,7 @@ export default function BukuKasForm({
                 <td className="px-4 py-3 text-slate-500">{t.keterangan || "-"}</td>
                 <td
                   className={`px-4 py-3 text-right font-medium ${
-                    t.jenis === "Masuk" ? "text-emerald-600" : "text-rose-600"
+                    t.jenis === "Masuk" ? "text-blue-600" : "text-rose-600"
                   }`}
                 >
                   {t.jenis === "Masuk" ? "+" : "-"} {formatRupiah(t.nominal)}

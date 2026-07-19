@@ -37,12 +37,12 @@ export default async function PublicPage({
 
   return (
     <main className="flex-1">
-      <header className="bg-emerald-700 text-white">
+      <header className="bg-blue-700 text-white">
         <div className="mx-auto max-w-5xl px-4 py-6 flex items-center gap-4">
           <img src="/logo.png" alt="Logo SAQ Sahabat Qur'an" className="h-16 w-16 rounded-full object-cover shrink-0 bg-white" />
           <div>
             <h1 className="text-xl font-bold sm:text-2xl">SAQ Sahabat Qur&apos;an</h1>
-            <p className="text-emerald-100 text-sm">Dasbor Publik Absensi & Kas Santri</p>
+            <p className="text-blue-100 text-sm">Dasbor Publik Absensi & Kas Santri</p>
           </div>
         </div>
       </header>
@@ -55,7 +55,7 @@ export default async function PublicPage({
               name="q"
               defaultValue={sp.q || ""}
               placeholder="Ketik nama..."
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
             />
           </label>
           <label className="text-sm">
@@ -64,18 +64,18 @@ export default async function PublicPage({
               type="month"
               name="bulan"
               defaultValue={bulan}
-              className="rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+              className="rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
             />
           </label>
-          <button className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800">
+          <button className="rounded-lg bg-blue-700 px-4 py-2 font-medium text-white hover:bg-blue-800">
             Tampilkan
           </button>
         </form>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-lg bg-emerald-50 border border-emerald-100 p-4 shadow-sm">
-            <h2 className="text-sm font-medium text-emerald-800">Saldo Pembukuan (Kas/Infak)</h2>
-            <p className="mt-1 text-2xl font-bold text-emerald-900">{formatRupiah(buku.saldo)}</p>
+          <div className="rounded-lg bg-blue-50 border border-blue-100 p-4 shadow-sm">
+            <h2 className="text-sm font-medium text-blue-800">Saldo Pembukuan (Kas/Infak)</h2>
+            <p className="mt-1 text-2xl font-bold text-blue-900">{formatRupiah(buku.saldo)}</p>
           </div>
           <div className="rounded-lg bg-white p-4 text-sm shadow-sm border border-slate-200 flex items-center">
             <p className="text-slate-600">
@@ -107,7 +107,7 @@ export default async function PublicPage({
                         </div>
                         {t.keterangan && <div className="text-xs text-slate-500">{t.keterangan}</div>}
                       </td>
-                      <td className={`px-4 py-3 text-right font-medium whitespace-nowrap ${t.jenis === "Masuk" ? "text-emerald-600" : "text-rose-600"}`}>
+                      <td className={`px-4 py-3 text-right font-medium whitespace-nowrap ${t.jenis === "Masuk" ? "text-blue-600" : "text-rose-600"}`}>
                         {t.jenis === "Masuk" ? "+" : "-"} {formatRupiah(t.nominal)}
                       </td>
                     </tr>
@@ -135,7 +135,7 @@ export default async function PublicPage({
                   </div>
                   <div className="mt-1 h-2 w-full rounded-full bg-slate-100">
                     <div
-                      className="h-2 rounded-full bg-emerald-500"
+                      className="h-2 rounded-full bg-blue-500"
                       style={{ width: `${r.persen}%` }}
                     />
                   </div>
@@ -147,7 +147,7 @@ export default async function PublicPage({
                   <span
                     className={`rounded-full px-2 py-1 font-medium ${
                       r.kasReguler === "Lunas"
-                        ? "bg-emerald-100 text-emerald-700"
+                        ? "bg-blue-100 text-blue-700"
                         : "bg-amber-100 text-amber-700"
                     }`}
                   >
@@ -156,7 +156,7 @@ export default async function PublicPage({
                     <span
                     className={`rounded-full px-2 py-1 font-medium ${
                       r.kasUmum === "Lunas"
-                        ? "bg-emerald-100 text-emerald-700"
+                        ? "bg-blue-100 text-blue-700"
                         : "bg-amber-100 text-amber-700"
                     }`}
                     >
@@ -170,7 +170,7 @@ export default async function PublicPage({
 
         <p className="mt-8 text-center text-xs text-slate-400">
           Data pembaruan maksimal 1 jam setelah kegiatan selesai. ·
-          <Link href="/login" className="ml-1 text-emerald-700 underline">
+          <Link href="/login" className="ml-1 text-blue-700 underline">
             Akses Admin
           </Link>
         </p>

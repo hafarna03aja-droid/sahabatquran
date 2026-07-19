@@ -19,21 +19,21 @@ export default async function AdminPage({
 
   return (
     <main className="flex-1">
-      <header className="bg-emerald-800 text-white">
+      <header className="bg-blue-800 text-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
             <img src="/logo.png" alt="Logo" className="h-10 w-10 rounded-full object-cover bg-white" />
             <div>
               <h1 className="text-lg font-bold">Panel Admin - SAQ Sahabat Qur&apos;an</h1>
-              <p className="text-emerald-100 text-xs">Input absensi & kas santri</p>
+              <p className="text-blue-100 text-xs">Input absensi & kas santri</p>
             </div>
           </div>
           <div className="flex items-center gap-3 text-sm">
-            <Link href="/" className="text-emerald-100 hover:underline">
+            <Link href="/" className="text-blue-100 hover:underline">
               Dasbor Publik
             </Link>
             <form action={logout}>
-              <button className="rounded-lg bg-emerald-900/60 px-3 py-1 hover:bg-emerald-900">
+              <button className="rounded-lg bg-blue-900/60 px-3 py-1 hover:bg-blue-900">
                 Logout
               </button>
             </form>
@@ -54,7 +54,7 @@ export default async function AdminPage({
               href={`/admin?tab=${key}`}
               className={`rounded-lg px-3 py-2 font-medium ${
                 tab === key
-                  ? "bg-emerald-100 text-emerald-800"
+                  ? "bg-blue-100 text-blue-800"
                   : "text-slate-500 hover:bg-slate-100"
               }`}
             >
@@ -64,7 +64,7 @@ export default async function AdminPage({
         </nav>
 
         {sp.ok && (
-          <p className="mt-4 rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+          <p className="mt-4 rounded-lg bg-blue-50 px-3 py-2 text-sm text-blue-700">
             ✓ Data berhasil disimpan.
           </p>
         )}
@@ -93,10 +93,10 @@ export default async function AdminPage({
                     name="nama"
                     required
                     placeholder="Nama lengkap"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-emerald-500 focus:outline-none"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
                   />
                 </label>
-                <button className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800">
+                <button className="rounded-lg bg-blue-700 px-4 py-2 font-medium text-white hover:bg-blue-800">
                   Tambah Santri
                 </button>
               </form>
